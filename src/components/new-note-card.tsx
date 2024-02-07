@@ -50,12 +50,12 @@ export function NewNoteCard() {
           <form onSubmit={handleSaveNote} className='flex-1 flex flex-col'>
 
             <div className='flex flex-1 flex-col gap-3 p-5'>
-              <span className='text-small font-medium text-slate-300'>
+              <span className='text-sm font-medium text-slate-300'>
                 Adicionar nota
               </span>
 
               {shouldShowOnboarding ? (
-                <p className='text-small leading-6 text-slate-400'>
+                <p className='text-sm leading-6 text-slate-400'>
                   Comece <button className='text-lime-400 font-medium hover:underline'>gravando uma nota</button> em áudio ou se preferir <button onClick={handleStartEditor} className='text-lime-400 font-medium hover:underline'>utilize apenas texto</button>.
                 </p>
               ) : (
