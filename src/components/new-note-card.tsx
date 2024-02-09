@@ -75,22 +75,34 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
 
     speechRecognition = new speechRecognitionAPI()
 
-    speechRecognition.lang = 'pt-BR'
-    speechRecognition.continuous = true
-    speechRecognition.maxAlternatives = 1
-    speechRecognition.interimResults = true
+    speechRecognition.lang = "pt-BR";
+    speechRecognition.continuous = true;
+    speechRecognition.maxAlternatives = 1;
+    speechRecognition.interimResults = true;
 
     speechRecognition.onresult = (event) => {
-      const transcript = Array.from(event.results).reduce((text, result) => {
-        return text.concat(result[0].transcript);
-      }, '')
+      let str = content.slice(-1);
+      let transcript = "";
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        if (!(event.results[i][0].confidence > 0)) continue;
+        if (event.results[i].isFinal && event.results[i][0].confidence >= 0.7) {
+          transcript = event.results[i][0].transcript;
+          console.log(transcript);
+        }
+      }
 
-      setContent(transcript)
-    }
+      if (str == "\n") {
+        setContent(`${content}${transcript}`);
+      } else {
+        setContent(`${content} ${transcript}`.trim());
+      }
+    };
 
     speechRecognition.onerror = (event) => {
-      console.error(event)
-    }
+      setIsRecording(false);
+      alert("Erro na captação da API de gravação, tente recarregar a página");
+      console.error(`Speech recognition error detected: ${event.error}`);
+    };
 
     speechRecognition.start()
   }
@@ -164,7 +176,7 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
                 className='w-full flex items-center justify-center gap-2 bg-slate-900 py-4 text-center text-sm text-slate-300 outline-none font-semibold hover:text-slate-100'
               >
                 <div className='size-3 rounded-full bg-red-500 animate-pulse' />
-                Gravando (clique para cancelar)
+                Gravando (clique para interromper)
               </button>
             ) : (
               <button
