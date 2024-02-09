@@ -75,34 +75,22 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
 
     speechRecognition = new speechRecognitionAPI()
 
-    speechRecognition.lang = "pt-BR";
-    speechRecognition.continuous = true;
-    speechRecognition.maxAlternatives = 1;
-    speechRecognition.interimResults = true;
+    speechRecognition.lang = 'pt-BR'
+    speechRecognition.continuous = true
+    speechRecognition.maxAlternatives = 1
+    speechRecognition.interimResults = true
 
     speechRecognition.onresult = (event) => {
-      let str = content.slice(-1);
-      let transcript = "";
-      for (let i = event.resultIndex; i < event.results.length; i++) {
-        if (!(event.results[i][0].confidence > 0)) continue;
-        if (event.results[i].isFinal && event.results[i][0].confidence >= 0.7) {
-          transcript = event.results[i][0].transcript;
-          console.log(transcript);
-        }
-      }
+      const transcript = Array.from(event.results).reduce((text, result) => {
+        return text.concat(result[0].transcript);
+      }, '')
 
-      if (str == "\n") {
-        setContent(`${content}${transcript}`);
-      } else {
-        setContent(`${content} ${transcript}`.trim());
-      }
-    };
+      setContent(transcript)
+    }
 
     speechRecognition.onerror = (event) => {
-      setIsRecording(false);
-      alert("Erro na captação da API de gravação, tente recarregar a página");
-      console.error(`Speech recognition error detected: ${event.error}`);
-    };
+      console.error(event)
+    }
 
     speechRecognition.start()
   }
