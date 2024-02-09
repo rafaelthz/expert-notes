@@ -68,6 +68,8 @@ export function App() {
 
     localStorage.setItem('notes', JSON.stringify(notFilteredNotes))
 
+    setSearch('')
+
     toast.success('Notas apagadas com sucesso.', {
       duration: 2500
     })
@@ -89,9 +91,11 @@ export function App() {
       <div className='flex flex-row items-center justify-between'>
         <img src={logo} alt="Logotipo NLW Expert" />
 
-        {notes.length > 0 &&
-          <div className='flex flex-row items-center gap-1'>
+        <div className='flex flex-row items-center gap-1'>
+          {(filteredNotes.length > 0 || search !== '') &&
             <span className='text-xs md:text-sm font-medium text-slate-400'>{notesQuantityText}</span>
+          }
+          {filteredNotes.length > 0 &&
             <AlertDialog.Root>
               <AlertDialog.Trigger className='text-xs md:text-sm inline-flex items-center gap-1 font-medium text-red-300 hover:text-red-400 hover:underline focus-visible:text-red-400 focus-visible:underline'>
                 [Apagar]
@@ -118,8 +122,8 @@ export function App() {
                 </AlertDialog.Content>
               </AlertDialog.Portal>
             </AlertDialog.Root>
-          </div>
-        }
+          }
+        </div>
       </div>
 
       <form className="w-full space-y-2 md:space-y-3">
@@ -128,6 +132,7 @@ export function App() {
           placeholder='Busque em suas notas'
           className='bg-transparent w-full text-lg md:text-2xl font-semibold tracking-tight outline-none placeholder:text-slate-500'
           onChange={handleSearch}
+          value={search}
         />
         <div className='h-px bg-slate-700' />
       </form >
