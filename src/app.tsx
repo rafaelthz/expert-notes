@@ -1,7 +1,7 @@
 import logo from './assets/logo-nlw-expert.svg';
 import { NoteCard } from './components/note-card';
 import { NewNoteCard } from './components/new-note-card';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
 import { toast } from 'sonner'
 
@@ -23,6 +23,24 @@ export function App() {
 
     return []
   })
+
+  const [textareaHeight, setTextareaHeight] = useState('100px'); // Altura inicial da textarea
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerHeight < window.outerHeight) {
+        setTextareaHeight(`${window.innerHeight * 0.4}px`);
+      } else {
+        setTextareaHeight('100px');
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   function onNoteCreated(content: string) {
     const newNote = {
@@ -85,7 +103,7 @@ export function App() {
   const notesQuantityText = filteredNotes.length === 1 ? `${filteredNotes.length} nota` : `${filteredNotes.length} notas`
 
   return (
-    <div className="mx-auto max-w-6xl my-4 md:my-16 space-y-4 md:space-y-6 px-4">
+    <div className="mx-auto max-w-6xl my-4 md:my-16 space-y-4 md:space-y-6 px-4" style={{ height: textareaHeight }}>
       <div className='flex flex-row items-center justify-between'>
         <img src={logo} alt="Logotipo NLW Expert" />
 
