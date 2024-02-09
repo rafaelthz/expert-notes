@@ -20,7 +20,7 @@ export function NoteCard({ note, onNoteDeleted }: NoteCardProps) {
         <span className='text-xs font-medium text-slate-400'>
           {formatDistanceToNow(note.date, { locale: ptBR, addSuffix: true })}
         </span>
-        <p className='text-sm leading-6 text-slate-300 h-full w-full break-words overflow-hidden md:overflow-scroll'>
+        <p className='text-sm leading-6 text-slate-300 h-full w-full break-words overflow-hidden md:overflow-scroll pb-10 whitespace-pre-wrap'>
           {note.content}
         </p>
         <div className='absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-b from-black/0 to-black/60 pointer-events-none' />
@@ -37,7 +37,7 @@ export function NoteCard({ note, onNoteDeleted }: NoteCardProps) {
             <span className='text-sm font-medium text-slate-400'>
               {formatDistanceToNow(note.date, { locale: ptBR, addSuffix: true })}
             </span>
-            <p className='text-md leading-6 text-slate-300 break-words overflow-scroll h-[calc(100%-96px)] pb-4'>
+            <p className='text-md leading-6 text-slate-300 break-words overflow-scroll h-[calc(100%-96px)] pb-4 whitespace-pre-wrap'>
               {note.content}
             </p>
           </div>
