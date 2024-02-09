@@ -98,7 +98,7 @@ export function App() {
               </AlertDialog.Trigger>
               <AlertDialog.Portal>
                 <AlertDialog.Overlay className='inset-0 fixed bg-black/50' />
-                <AlertDialog.Content className='fixed inset-auto p-5 gap-4 w-[90vh] max-w-[500px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-slate-700 rounded-md flex flex-col flex-1 outline-none overflow-hidden'>
+                <AlertDialog.Content className='fixed inset-auto p-5 gap-4 w-[90vw] max-w-[500px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-slate-700 rounded-md flex flex-col flex-1 outline-none overflow-hidden'>
                   <div className='space-y-2'>
                     <AlertDialog.Title className='text-md font-medium text-slate-100'>Você deseja apagar {notesQuantityText}?</AlertDialog.Title>
                     <AlertDialog.Description className='text-sm leading-6 text-slate-300'>
