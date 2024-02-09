@@ -4,6 +4,7 @@ import { NewNoteCard } from './components/new-note-card';
 import { ChangeEvent, useState } from 'react';
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
 import { toast } from 'sonner'
+import { X } from 'lucide-react'
 
 interface Note {
   id: string
@@ -127,13 +128,16 @@ export function App() {
       </div>
 
       <form className="w-full space-y-2 md:space-y-3">
-        <input
-          type="text"
-          placeholder='Busque em suas notas'
-          className='bg-transparent w-full text-lg md:text-2xl font-semibold tracking-tight outline-none placeholder:text-slate-500'
-          onChange={handleSearch}
-          value={search}
-        />
+        <div className='flex flex-row justify-between items-center'>
+          <input
+            type="text"
+            placeholder='Busque em suas notas'
+            className='bg-transparent w-full text-lg md:text-2xl font-semibold tracking-tight outline-none placeholder:text-slate-500'
+            onChange={handleSearch}
+            value={search}
+          />
+          {search && <button type='button' className='text-slate-500 hover:text-slate-400' onClick={() => setSearch('')}><X className='size-6' /></button>}
+        </div>
         <div className='h-px bg-slate-700' />
       </form >
 
