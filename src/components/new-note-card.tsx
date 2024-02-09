@@ -36,9 +36,9 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
   function handleContentChanged(event: ChangeEvent<HTMLTextAreaElement>) {
     setContent(event.target.value)
 
-    if (event.target.value === '') {
-      setShouldShowOnboarding(true)
-    }
+    // if (event.target.value === '') {
+    //   setShouldShowOnboarding(true)
+    // }
   }
 
   function handleSaveNote(event: FormEvent) {
@@ -105,7 +105,7 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
 
   return (
     <Dialog.Root open={isOpenedEditor} onOpenChange={setIsOpenedEditor}>
-      <Dialog.Trigger className='rounded-md text-left flex flex-col bg-slate-700 max-h-[120px] md:h-full md:max-h-[250px] p-4 md:p-5 gap-2 outline-none hover:ring-2 hover:ring-slate-600 focus-visible:ring-2 focus-visible:ring-lime-400'>
+      <Dialog.Trigger className='rounded-md text-left flex flex-col bg-slate-700 max-h-[120px] md:h-full md:max-h-[250px] p-4 md:p-5 gap-2 overflow-hidden outline-none hover:ring-2 hover:ring-slate-600 focus-visible:ring-2 focus-visible:ring-lime-400'>
         <div className='flex flex-row items-center gap-2'>
           <PlusCircle className='size-4' />
           <span className='text-sm md:text-md font-medium text-slate-200'>
@@ -113,7 +113,7 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
           </span>
         </div>
         {content !== '' &&
-          <p className='text-sm leading-6 text-slate-400 overflow-scroll hidden sm:block'>
+          <p className='text-sm leading-6 text-slate-400 w-full break-words overflow-hidden md:overflow-scroll'>
             <span className='text-yellow-500'>Rascunho: </span>{content}
           </p>
         }
@@ -131,9 +131,8 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
           </Dialog.Close>
 
           <form className='flex-1 flex flex-col'>
-
             <div className='flex flex-1 flex-col gap-3 p-5'>
-              <span className='text-md font-medium text-slate-300'>
+              <span className='text-md font-medium text-slate-200'>
                 Adicionar nota
               </span>
 
@@ -166,7 +165,7 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
               <button
                 type='button'
                 onClick={handleSaveNote}
-                className='w-full bg-lime-400 py-4 text-center text-sm text-lime-950 outline-none font-semibold hover:bg-lime-500'
+                className='w-full bg-lime-400 py-4 text-center text-sm text-lime-950 outline-none font-semibold hover:bg-lime-500 focus-visible:underline focus-visible:bg-lime-500'
               >
                 Salvar nota
               </button>
