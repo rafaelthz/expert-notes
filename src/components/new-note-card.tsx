@@ -29,6 +29,24 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
     };
   }, []);
 
+  const [textareaHeight, setTextareaHeight] = useState('100%'); // Altura inicial da textarea
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerHeight < window.outerHeight) {
+        setTextareaHeight(`${window.innerHeight * 0.4}px`);
+      } else {
+        setTextareaHeight('100%');
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   function handleStartEditor() {
     setShouldShowOnboarding(false)
   }
@@ -129,7 +147,9 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
           onInteractOutside={() => {
             setIsOpenedEditor(false)
             handleStopRecording()
-          }}>
+          }}
+          style={{ height: textareaHeight }}
+        >
           <Dialog.Close onClick={handleStopRecording} className='absolute top-o right-0 bg-slate-800 p-1.5 text-slate-400 hover:text-slate-100'>
             < X className='size-5' />
           </Dialog.Close>
