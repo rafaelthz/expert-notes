@@ -1,5 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog'
-import { X } from 'lucide-react'
+import { X, PlusCircle } from 'lucide-react'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
@@ -13,12 +13,12 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
   const [shouldShowOnboarding, setShouldShowOnboarding] = useState(true)
   const [isRecording, setIsRecording] = useState(false)
   const [content, setContent] = useState('')
-  const [openEditor, setOpenEditor] = useState(false)
+  const [isOpenedEditor, setIsOpenedEditor] = useState(false)
 
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        setOpenEditor(false)
+        setIsOpenedEditor(false)
         handleStopRecording()
       }
     };
@@ -48,7 +48,7 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
       onNoteCreated(content)
       setContent('')
       setShouldShowOnboarding(true)
-      setOpenEditor(false)
+      setIsOpenedEditor(false)
       toast.success('Nota criada com sucesso :)')
     } else {
       toast.error('Conteúdo da nota vazio. Grave um áudio ou escreva um texto para salvar.')
@@ -104,21 +104,26 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
   }
 
   return (
-    <Dialog.Root open={openEditor} onOpenChange={setOpenEditor}>
+    <Dialog.Root open={isOpenedEditor} onOpenChange={setIsOpenedEditor}>
       <Dialog.Trigger className='rounded-md text-left flex flex-col bg-slate-700 max-h-[120px] md:h-full md:max-h-[250px] p-4 md:p-5 gap-2 outline-none hover:ring-2 hover:ring-slate-600 focus-visible:ring-2 focus-visible:ring-lime-400'>
-        <span className='text-sm md:text-md font-medium text-slate-200'>
-          Adicionar nova nota
-        </span>
-        <p className='text-sm leading-6 text-slate-400 overflow-scroll hidden sm:block'>
-          Grave uma nota em áudio que será convertida para texto automaticamente ou escreva seu texto :)
-        </p>
+        <div className='flex flex-row items-center gap-2'>
+          <PlusCircle className='size-4' />
+          <span className='text-sm md:text-md font-medium text-slate-200'>
+            Adicionar nova nota
+          </span>
+        </div>
+        {content !== '' &&
+          <p className='text-sm leading-6 text-slate-400 overflow-scroll hidden sm:block'>
+            <span className='text-yellow-500'>Rascunho: </span>{content}
+          </p>
+        }
       </Dialog.Trigger>
 
       <Dialog.Portal>
         <Dialog.Overlay className='inset-0 fixed bg-black/50' />
         <Dialog.Content className='fixed inset-0 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-[640px] w-full md:h-[60vh] bg-slate-700 md:rounded-md flex flex-col outline-none overflow-hidden'
           onInteractOutside={() => {
-            setOpenEditor(false)
+            setIsOpenedEditor(false)
             handleStopRecording()
           }}>
           <Dialog.Close onClick={handleStopRecording} className='absolute top-o right-0 bg-slate-800 p-1.5 text-slate-400 hover:text-slate-100'>
@@ -138,12 +143,12 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
                 </p>
               ) : (
                 <textarea
-                  autoFocus
+                  autoFocus={!isRecording}
                   className='text-md leading-6 text-slate-300 bg-transparent resize-none flex-1 outline-none'
                   onChange={handleContentChanged}
                   value={content}
-                  ref={ref => ref && ref.focus()}
-                  onFocus={(e) => e.currentTarget.setSelectionRange(e.currentTarget.value.length, e.currentTarget.value.length)}
+                  ref={ref => !isRecording && ref && ref.focus()}
+                  onFocus={(e) => !isRecording && e.currentTarget.setSelectionRange(e.currentTarget.value.length, e.currentTarget.value.length)}
                 />
               )}
             </div>

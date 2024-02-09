@@ -75,7 +75,7 @@ export function App() {
             className='bg-transparent text-lg md:text-2xl font-semibold tracking-tight outline-none placeholder:text-slate-500'
             onChange={handleSearch}
           />
-          <p className='text-sm font-light text-slate-400'>{notesQuantityText}</p>
+          <span className='text-xs md:text-sm font-light text-slate-400'>{notesQuantityText}</span>
         </div>
         <div className='h-px bg-slate-700' />
       </form>
