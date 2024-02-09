@@ -3,6 +3,7 @@ import { NoteCard } from './components/note-card';
 import { NewNoteCard } from './components/new-note-card';
 import { ChangeEvent, useState } from 'react';
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
+import { toast } from 'sonner'
 
 interface Note {
   id: string
@@ -45,6 +46,10 @@ export function App() {
     setNotes(notesArray)
 
     localStorage.setItem('notes', JSON.stringify(notesArray))
+
+    toast.success('Nota apagada com sucesso.', {
+      duration: 2500
+    })
   }
 
   function handleSearch(event: ChangeEvent<HTMLInputElement>) {
@@ -62,6 +67,10 @@ export function App() {
     setNotes(notFilteredNotes);
 
     localStorage.setItem('notes', JSON.stringify(notFilteredNotes))
+
+    toast.success('Notas apagadas com sucesso.', {
+      duration: 2500
+    })
   }
 
   function toNormalForm(str: string) {
@@ -97,11 +106,11 @@ export function App() {
                     </AlertDialog.Description>
                   </div>
                   <div className='flex flex-row justify-end items-center gap-3'>
-                    <AlertDialog.Cancel className="bg-slate-200 rounded-md px-3 py-2 text-slate-700 text-sm font-semibold hover:bg-slate-300 outline-none focus-visible:ring-2 focus-visible:ring-slate-400">
+                    <AlertDialog.Cancel className="bg-slate-200 rounded-md px-3 py-2 text-slate-700 text-sm font-medium hover:bg-slate-300 outline-none focus-visible:ring-2 focus-visible:ring-slate-400">
                       Não apagar
                     </AlertDialog.Cancel>
                     <AlertDialog.Action
-                      className="bg-red-100 rounded-md px-3 py-2 text-red-600 text-sm font-semibold hover:bg-red-200 outline-none focus-visible:ring-2 focus-visible:ring-red-500"
+                      className="bg-red-100 rounded-md px-3 py-2 text-red-600 text-sm font-medium hover:bg-red-200 outline-none focus-visible:ring-2 focus-visible:ring-red-500"
                       onClick={handleDeleteFilteredNotes}>
                       Sim, quero apagar
                     </AlertDialog.Action>

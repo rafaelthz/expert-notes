@@ -49,9 +49,13 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
       setContent('')
       setShouldShowOnboarding(true)
       setIsOpenedEditor(false)
-      toast.success('Nota criada com sucesso :)')
+      toast.success('Nota criada com sucesso :)', {
+        duration: 2500
+      })
     } else {
-      toast.error('Conteúdo da nota vazio. Grave um áudio ou escreva um texto para salvar.')
+      toast.error('Conteúdo da nota vazio. Grave um áudio ou escreva um texto para salvar.', {
+        duration: 2500
+      })
     }
   }
 
