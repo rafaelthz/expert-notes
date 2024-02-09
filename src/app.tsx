@@ -80,35 +80,37 @@ export function App() {
       <div className='flex flex-row items-center justify-between'>
         <img src={logo} alt="Logotipo NLW Expert" />
 
-        <div className='flex flex-row items-center gap-1'>
-          <span className='text-xs md:text-sm font-medium text-slate-400'>{notesQuantityText}</span>
-          <AlertDialog.Root>
-            <AlertDialog.Trigger className='text-xs md:text-sm inline-flex items-center gap-1 font-medium text-red-300 hover:text-red-400 hover:underline focus-visible:text-red-400 focus-visible:underline'>
-              [Apagar]
-            </AlertDialog.Trigger>
-            <AlertDialog.Portal>
-              <AlertDialog.Overlay className='inset-0 fixed bg-black/50' />
-              <AlertDialog.Content className='fixed inset-auto p-5 gap-4 w-[90vh] max-w-[500px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-slate-700 rounded-md flex flex-col flex-1 outline-none overflow-hidden'>
-                <div className='space-y-2'>
-                  <AlertDialog.Title className='text-md font-medium text-slate-100'>Você deseja apagar {notesQuantityText}?</AlertDialog.Title>
-                  <AlertDialog.Description className='text-sm leading-6 text-slate-300'>
-                    Essa ação não poderá ser desfeita. Caso tenha filtrado pela busca, apenas as notas filtradas serão apagadas.
-                  </AlertDialog.Description>
-                </div>
-                <div className='flex flex-row justify-end items-center gap-3'>
-                  <AlertDialog.Cancel className="bg-slate-200 rounded-md px-3 py-2 text-slate-700 text-sm font-semibold hover:bg-slate-300 outline-none focus-visible:ring-2 focus-visible:ring-slate-400">
-                    Não apagar
-                  </AlertDialog.Cancel>
-                  <AlertDialog.Action
-                    className="bg-red-100 rounded-md px-3 py-2 text-red-600 text-sm font-semibold hover:bg-red-200 outline-none focus-visible:ring-2 focus-visible:ring-red-500"
-                    onClick={handleDeleteFilteredNotes}>
-                    Sim, quero apagar
-                  </AlertDialog.Action>
-                </div>
-              </AlertDialog.Content>
-            </AlertDialog.Portal>
-          </AlertDialog.Root>
-        </div>
+        {notes.length > 0 &&
+          <div className='flex flex-row items-center gap-1'>
+            <span className='text-xs md:text-sm font-medium text-slate-400'>{notesQuantityText}</span>
+            <AlertDialog.Root>
+              <AlertDialog.Trigger className='text-xs md:text-sm inline-flex items-center gap-1 font-medium text-red-300 hover:text-red-400 hover:underline focus-visible:text-red-400 focus-visible:underline'>
+                [Apagar]
+              </AlertDialog.Trigger>
+              <AlertDialog.Portal>
+                <AlertDialog.Overlay className='inset-0 fixed bg-black/50' />
+                <AlertDialog.Content className='fixed inset-auto p-5 gap-4 w-[90vh] max-w-[500px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-slate-700 rounded-md flex flex-col flex-1 outline-none overflow-hidden'>
+                  <div className='space-y-2'>
+                    <AlertDialog.Title className='text-md font-medium text-slate-100'>Você deseja apagar {notesQuantityText}?</AlertDialog.Title>
+                    <AlertDialog.Description className='text-sm leading-6 text-slate-300'>
+                      Essa ação não poderá ser desfeita. Caso tenha filtrado pela busca, apenas as notas filtradas serão apagadas.
+                    </AlertDialog.Description>
+                  </div>
+                  <div className='flex flex-row justify-end items-center gap-3'>
+                    <AlertDialog.Cancel className="bg-slate-200 rounded-md px-3 py-2 text-slate-700 text-sm font-semibold hover:bg-slate-300 outline-none focus-visible:ring-2 focus-visible:ring-slate-400">
+                      Não apagar
+                    </AlertDialog.Cancel>
+                    <AlertDialog.Action
+                      className="bg-red-100 rounded-md px-3 py-2 text-red-600 text-sm font-semibold hover:bg-red-200 outline-none focus-visible:ring-2 focus-visible:ring-red-500"
+                      onClick={handleDeleteFilteredNotes}>
+                      Sim, quero apagar
+                    </AlertDialog.Action>
+                  </div>
+                </AlertDialog.Content>
+              </AlertDialog.Portal>
+            </AlertDialog.Root>
+          </div>
+        }
       </div>
 
       <form className="w-full space-y-2 md:space-y-3">
