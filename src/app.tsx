@@ -15,7 +15,8 @@ export function App() {
     const notesOnStorage = localStorage.getItem('notes')
 
     if (notesOnStorage) {
-      return JSON.parse(notesOnStorage)
+      const notesArray = JSON.parse(notesOnStorage)
+      return notesArray
     }
 
     return []
@@ -60,21 +61,26 @@ export function App() {
       note => toNormalForm(note.content.toLocaleLowerCase()).includes(toNormalForm(search.toLocaleLowerCase()))
     ) : notes
 
+  const notesQuantityText = filteredNotes.length === 1 ? `${filteredNotes.length} nota` : `${filteredNotes.length} notas`
+
   return (
-    <div className="mx-auto max-w-6xl my-16 space-y-6 px-5">
+    <div className="mx-auto max-w-6xl my-4 md:my-16 space-y-4 md:space-y-6 px-4">
       <img src={logo} alt="Logotipo NLW Expert" />
 
-      <form className="w-full space-y-3">
-        <input
-          type="text"
-          placeholder='Busque em suas notas'
-          className='w-full bg-transparent text-2xl font-semibold tracking-tight outline-none placeholder:text-slate-500'
-          onChange={handleSearch}
-        />
+      <form className="w-full space-y-2 md:space-y-3">
+        <div className='flex flex-row items-center justify-between'>
+          <input
+            type="text"
+            placeholder='Busque em suas notas'
+            className='bg-transparent text-lg md:text-2xl font-semibold tracking-tight outline-none placeholder:text-slate-500'
+            onChange={handleSearch}
+          />
+          <p className='text-sm font-light text-slate-400'>{notesQuantityText}</p>
+        </div>
         <div className='h-px bg-slate-700' />
       </form>
 
-      <div className='grid sm:md:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[250px]'>
+      <div className='grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 auto-rows-max-[120px] md:auto-rows-[250px]'>
         <NewNoteCard onNoteCreated={onNoteCreated} />
 
         {filteredNotes.map(note => {

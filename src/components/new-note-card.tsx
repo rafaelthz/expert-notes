@@ -1,6 +1,6 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { X } from 'lucide-react'
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
 interface NewNoteCardProps {
@@ -13,6 +13,21 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
   const [shouldShowOnboarding, setShouldShowOnboarding] = useState(true)
   const [isRecording, setIsRecording] = useState(false)
   const [content, setContent] = useState('')
+  const [openEditor, setOpenEditor] = useState(false)
+
+  useEffect(() => {
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setOpenEditor(false)
+        handleStopRecording()
+      }
+    };
+    window.addEventListener('keydown', handleEsc);
+
+    return () => {
+      window.removeEventListener('keydown', handleEsc);
+    };
+  }, []);
 
   function handleStartEditor() {
     setShouldShowOnboarding(false)
@@ -33,17 +48,16 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
       onNoteCreated(content)
       setContent('')
       setShouldShowOnboarding(true)
+      setOpenEditor(false)
       toast.success('Nota criada com sucesso :)')
     } else {
-      toast.error('Grave um áudio ou escreva um texto antes de salvar a nota.')
+      toast.error('Conteúdo da nota vazio. Grave um áudio ou escreva um texto para salvar.')
     }
   }
 
   function handleStartRecording() {
     const isSpeechRecognitionAPIAvailable = 'SpeechRecognition' in window
       || 'webkitSpeechRecognition' in window
-
-    console.log(isSpeechRecognitionAPIAvailable)
 
     if (!isSpeechRecognitionAPIAvailable) {
       alert('Infelizmente seu navegador não suporta a gravação por áudio.')
@@ -53,9 +67,9 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
     setIsRecording(true)
     setShouldShowOnboarding(false)
 
-    const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition
+    const speechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition
 
-    speechRecognition = new SpeechRecognitionAPI()
+    speechRecognition = new speechRecognitionAPI()
 
     speechRecognition.lang = 'pt-BR'
     speechRecognition.continuous = true
@@ -89,21 +103,24 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
     }
   }
 
-
   return (
-    <Dialog.Root>
-      <Dialog.Trigger className='rounded-md text-left flex flex-col bg-slate-700 p-5 gap-2 outline-none hover:ring-2 hover:ring-slate-600 focus-visible:ring-2 focus-visible:ring-lime-400'>
-        <span className='text-md font-medium text-slate-200'>
+    <Dialog.Root open={openEditor} onOpenChange={setOpenEditor}>
+      <Dialog.Trigger className='rounded-md text-left flex flex-col bg-slate-700 max-h-[120px] md:h-full md:max-h-[250px] p-4 md:p-5 gap-2 outline-none hover:ring-2 hover:ring-slate-600 focus-visible:ring-2 focus-visible:ring-lime-400'>
+        <span className='text-sm md:text-md font-medium text-slate-200'>
           Adicionar nova nota
         </span>
-        <p className='text-sm leading-6 text-slate-400'>
+        <p className='text-sm leading-6 text-slate-400 overflow-scroll hidden sm:block'>
           Grave uma nota em áudio que será convertida para texto automaticamente ou escreva seu texto :)
         </p>
       </Dialog.Trigger>
 
       <Dialog.Portal>
         <Dialog.Overlay className='inset-0 fixed bg-black/50' />
-        <Dialog.Content className='fixed inset-0 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-[640px] w-full md:h-[60vh] bg-slate-700 md:rounded-md flex flex-col outline-none overflow-hidden'>
+        <Dialog.Content className='fixed inset-0 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-[640px] w-full md:h-[60vh] bg-slate-700 md:rounded-md flex flex-col outline-none overflow-hidden'
+          onInteractOutside={() => {
+            setOpenEditor(false)
+            handleStopRecording()
+          }}>
           <Dialog.Close onClick={handleStopRecording} className='absolute top-o right-0 bg-slate-800 p-1.5 text-slate-400 hover:text-slate-100'>
             < X className='size-5' />
           </Dialog.Close>
