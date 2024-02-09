@@ -105,7 +105,7 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
 
   return (
     <Dialog.Root open={isOpenedEditor} onOpenChange={setIsOpenedEditor}>
-      <Dialog.Trigger className='rounded-md text-left flex flex-col bg-slate-700 max-h-[120px] md:h-full md:max-h-[250px] px-4 md:px-5 gap-2 overflow-hidden outline-none hover:ring-2 hover:ring-slate-600 focus-visible:ring-2 focus-visible:ring-lime-400'>
+      <Dialog.Trigger className='rounded-md text-left flex flex-col bg-slate-700 max-h-[120px] md:h-full md:max-h-[250px] p-4 md:p-5 gap-2 overflow-hidden outline-none hover:ring-2 hover:ring-slate-600 focus-visible:ring-2 focus-visible:ring-lime-400'>
         <div className='flex flex-row items-center gap-2'>
           <PlusCircle className='size-4' />
           <span className='text-sm md:text-md font-medium text-slate-200'>
