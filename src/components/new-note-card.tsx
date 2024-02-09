@@ -10,9 +10,16 @@ interface NewNoteCardProps {
 let speechRecognition: SpeechRecognition | null = null
 
 export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
-  const [shouldShowOnboarding, setShouldShowOnboarding] = useState(true)
   const [isRecording, setIsRecording] = useState(false)
-  const [content, setContent] = useState('')
+  const [content, setContent] = useState(() => {
+    const draftOnStorage = localStorage.getItem('draft')
+
+    if (draftOnStorage) {
+      return draftOnStorage
+    }
+
+    return ''
+  })
   const [isOpenedEditor, setIsOpenedEditor] = useState(false)
 
   useEffect(() => {
@@ -29,16 +36,9 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
     };
   }, []);
 
-  function handleStartEditor() {
-    setShouldShowOnboarding(false)
-  }
-
   function handleContentChanged(event: ChangeEvent<HTMLTextAreaElement>) {
     setContent(event.target.value)
-
-    // if (event.target.value === '') {
-    //   setShouldShowOnboarding(true)
-    // }
+    localStorage.setItem('draft', event.target.value)
   }
 
   function handleSaveNote(event: FormEvent) {
@@ -47,8 +47,8 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
     if (content !== '') {
       onNoteCreated(content)
       setContent('')
-      setShouldShowOnboarding(true)
       setIsOpenedEditor(false)
+      localStorage.setItem('draft', '')
       toast.success('Nota criada com sucesso :)', {
         duration: 2500
       })
@@ -69,7 +69,6 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
     }
 
     setIsRecording(true)
-    setShouldShowOnboarding(false)
 
     const speechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition
 
@@ -100,10 +99,6 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
 
     if (speechRecognition !== null) {
       speechRecognition.stop()
-    }
-
-    if (content === '') {
-      setShouldShowOnboarding(true)
     }
   }
 
@@ -141,20 +136,17 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
                 Adicionar nota
               </span>
 
-              {shouldShowOnboarding ? (
-                <p className='text-sm leading-6 text-slate-400'>
-                  Comece <button type='button' onClick={handleStartRecording} className='text-lime-400 font-medium hover:underline'>gravando uma nota</button> em áudio ou se preferir <button type='button' onClick={handleStartEditor} className='text-lime-400 font-medium hover:underline'>utilize apenas texto</button>.
-                </p>
-              ) : (
-                <textarea
-                  autoFocus={!isRecording}
-                  className='text-md leading-6 text-slate-300 bg-transparent resize-none flex-1 outline-none'
-                  onChange={handleContentChanged}
-                  value={content}
-                  ref={ref => !isRecording && ref && ref.focus()}
-                  onFocus={(e) => !isRecording && e.currentTarget.setSelectionRange(e.currentTarget.value.length, e.currentTarget.value.length)}
-                />
-              )}
+              <p className='text-sm leading-6 text-slate-400'>
+                Digite seu texto abaixo ou <button type='button' onClick={handleStartRecording} className='text-lime-400 font-medium hover:underline'>grave um áudio</button>.
+              </p>
+              <textarea
+                autoFocus={!isRecording}
+                className='text-md leading-6 text-slate-300 bg-transparent resize-none flex-1 outline-none'
+                onChange={handleContentChanged}
+                value={content}
+                ref={ref => !isRecording && ref && ref.focus()}
+                onFocus={(e) => !isRecording && e.currentTarget.setSelectionRange(e.currentTarget.value.length, e.currentTarget.value.length)}
+              />
             </div>
 
             {isRecording ? (
