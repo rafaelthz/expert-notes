@@ -18,7 +18,7 @@ Doing:
 - audio concatenation
 - editing flow
 
-Speech Recognition is working in portuguese audios and only works on some [browsers](developer.mozilla.org/en-us/docs/web/api/speechrecognition)
+Obs: Speech Recognition is working in portuguese audios and only works on some [browsers](developer.mozilla.org/en-us/docs/web/api/speechrecognition)
 
 <br>
 
