@@ -43,7 +43,3 @@ You can view the official version of the project layout through [this link](http
 - Start the server with `npm run dev`
 
 Now you can access [`localhost:5173`](localhost:5173) in your browser.
-
----
-
-Inspired by [Rocketseat Education](https://github.com/rocketseat-education/nlw-06-reactjs).
