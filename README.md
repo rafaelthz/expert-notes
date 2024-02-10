@@ -16,7 +16,7 @@ To complement the project I developed:
 
 Doing:
 - audio concatenation
-- edit flow
+- editing flow
 
 Speech Recognition is working in portuguese audios and only works on some [browsers](developer.mozilla.org/en-us/docs/web/api/speechrecognition)
 
