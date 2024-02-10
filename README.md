@@ -1,3 +1,7 @@
+![image](https://github.com/rafaelthz/expert-notes/assets/26236392/352cb2c2-66ad-45c4-b567-79a0a450be27)
+
+<br>
+
 ## Project
 
 Expert Notes is a web application to create notes with text or transcripted audios. The project was developed during NLW Expert (ReactJS), event presented by [Rocketseat](https://rocketseat.com.br/).
@@ -43,3 +47,10 @@ You can view the official version of the project layout through [this link](http
 - Start the server with `npm run dev`
 
 Now you can access [`localhost:5173`](localhost:5173) in your browser.
+
+<br>
+
+![image](https://github.com/rafaelthz/expert-notes/assets/26236392/87cb9040-ee27-4136-9393-154dd8a79b1b)
+
+![image](https://github.com/rafaelthz/expert-notes/assets/26236392/f8a03c25-b5c2-4958-a528-ba214e63d3fa)
+
