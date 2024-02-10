@@ -4,7 +4,7 @@
 
 ## Project
 
-Expert Notes is a web application to create notes with text or transcripted audios. The project was developed during NLW Expert (ReactJS), event presented by [Rocketseat](https://rocketseat.com.br/).
+Expert Notes is a web application to create notes with text and transcripted audios. The project was developed during NLW Expert (ReactJS), event presented by [Rocketseat](https://rocketseat.com.br/).
 
 To complement the project I developed:
 - info about number of notes
@@ -28,7 +28,7 @@ This project was developed using the following technologies:
 
 - [React](https://reactjs.org)
 - [TypeScript](https://www.typescriptlang.org/)
-- [Tailwind](https://tailwindui.com)
+- [Tailwind CSS](https://tailwindcss.com/)
 - [Radix](https://radix-ui.com)
 - [Sonner Toast](https://sonner.emilkowal.ski/)
 - SpeechRecognition Web API
