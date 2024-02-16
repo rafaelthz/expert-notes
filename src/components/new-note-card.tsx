@@ -156,7 +156,7 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
                     Adicionar nota
                   </span>
                   <HoverCard.Root>
-                    <HoverCard.Trigger>
+                    <HoverCard.Trigger className='hidden sm:block'>
                       <HelpCircle className='size-4 text-slate-300' />
                     </HoverCard.Trigger>
                     <HoverCard.Content className='bg-slate-100 p-4 rounded absolute left-0 w-80'>
