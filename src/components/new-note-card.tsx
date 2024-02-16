@@ -1,5 +1,6 @@
 import * as Dialog from '@radix-ui/react-dialog'
-import { X, PlusCircle, Mic } from 'lucide-react'
+import * as HoverCard from '@radix-ui/react-hover-card'
+import { X, PlusCircle, Mic, HelpCircle } from 'lucide-react'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
@@ -109,12 +110,25 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
   return (
     <Dialog.Root open={isOpenedEditor} onOpenChange={setIsOpenedEditor}>
       <Dialog.Trigger className='rounded-md text-left flex flex-col bg-slate-700 max-h-[120px] md:h-full md:max-h-[250px] p-4 md:p-5 gap-2 overflow-hidden outline-none hover:ring-2 hover:ring-slate-600 focus-visible:ring-2 focus-visible:ring-lime-400'>
-        <div className='flex flex-row items-center gap-2'>
-          <PlusCircle className='size-4' />
-          <span className='text-sm md:text-md font-medium text-slate-200'>
-            Adicionar nova nota
-          </span>
+        <div className='w-full flex flex-row items-center justify-between'>
+          <div className='flex flex-row items-center gap-2'>
+            <PlusCircle className='size-4' />
+            <span className='text-sm md:text-md font-medium text-slate-200'>
+              Adicionar nova nota
+            </span>
+          </div>
+
+          <HoverCard.Root>
+            <HoverCard.Trigger className='hidden sm:block'>
+              <HelpCircle className='size-4 text-slate-300' />
+            </HoverCard.Trigger>
+            <HoverCard.Content className='bg-slate-100 p-4 rounded absolute left-0 w-80'>
+              <p className='text-xs font-light text-slate-800'>- As notas ficam salvas no seu navegador.</p>
+              <p className='text-xs font-light text-slate-800'>- O reconhecimento de voz só é compatível com alguns navegadores, para testar utilize Chrome.</p>
+            </HoverCard.Content>
+          </HoverCard.Root>
         </div>
+
         {content !== '' &&
           <p className='text-sm leading-6 text-slate-400 w-full break-words overflow-hidden md:overflow-scroll pb-10 whitespace-pre-wrap'>
             <span className='text-yellow-500'>Rascunho: </span>{content}
@@ -137,9 +151,20 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
           <form className='flex-1 flex flex-col'>
             <div className='flex flex-1 flex-col gap-3 p-5'>
               <div className='space-y-1'>
-                <span className='text-md font-medium text-slate-200'>
-                  Adicionar nota
-                </span>
+                <div className='inline-flex items-center gap-2'>
+                  <span className='text-md font-medium text-slate-200'>
+                    Adicionar nota
+                  </span>
+                  <HoverCard.Root>
+                    <HoverCard.Trigger>
+                      <HelpCircle className='size-4 text-slate-300' />
+                    </HoverCard.Trigger>
+                    <HoverCard.Content className='bg-slate-100 p-4 rounded absolute left-0 w-80'>
+                      <p className='text-xs font-light text-slate-800'>- As notas ficam salvas no seu navegador.</p>
+                      <p className='text-xs font-light text-slate-800'>- O reconhecimento de voz só é compatível com alguns navegadores, para testar utilize Chrome.</p>
+                    </HoverCard.Content>
+                  </HoverCard.Root>
+                </div>
 
                 <p className='text-sm leading-6 text-slate-400'>
                   Digite seu texto abaixo ou grave um áudio

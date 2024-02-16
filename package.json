@@ -11,6 +11,7 @@
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-dialog": "^1.0.5",
+    "@radix-ui/react-hover-card": "^1.0.7",
     "date-fns": "^3.3.1",
     "lucide-react": "^0.323.0",
     "react": "^18.2.0",
