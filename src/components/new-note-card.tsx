@@ -85,7 +85,10 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
         return text.concat(result[0].transcript);
       }, '')
 
-      setContent(transcript)
+      let currentContent = content !== '' ? content + '\n' + transcript : content + transcript
+
+      setContent(currentContent)
+      localStorage.setItem('draft', currentContent)
     }
 
     speechRecognition.onerror = (event) => {
