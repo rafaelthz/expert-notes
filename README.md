@@ -15,9 +15,6 @@ To complement the project I developed:
 - rules for closing dialog with esc and click outside
 - audio concatenation
 
-Doing:
-- editing flow
-
 Obs: Speech Recognition is working in portuguese audios and only works on some [browsers](developer.mozilla.org/en-us/docs/web/api/speechrecognition)
 
 <br>
