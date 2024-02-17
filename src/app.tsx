@@ -110,12 +110,12 @@ export function App() {
                       Essa ação não poderá ser desfeita. Caso tenha filtrado pela busca, apenas as notas filtradas serão apagadas.
                     </AlertDialog.Description>
                   </div>
-                  <div className='flex flex-row w-full items-center gap-3'>
-                    <AlertDialog.Cancel className="w-1/2 bg-slate-200 rounded-md px-3 py-2 text-slate-700 text-sm font-medium hover:bg-slate-300 outline-none focus-visible:ring-2 focus-visible:ring-slate-400">
+                  <div className='inline-flex w-full justify-center items-center gap-3'>
+                    <AlertDialog.Cancel className="w-2/5 sm:w-full bg-slate-200 rounded-md px-3 py-2 text-slate-700 text-sm font-medium hover:bg-slate-300 outline-none focus-visible:ring-2 focus-visible:ring-slate-400">
                       Não apagar
                     </AlertDialog.Cancel>
                     <AlertDialog.Action
-                      className="w-1/2 bg-red-100 rounded-md px-3 py-2 text-red-600 text-sm font-medium hover:bg-red-200 outline-none focus-visible:ring-2 focus-visible:ring-red-500"
+                      className="w-3/5 sm:w-full bg-red-100 rounded-md px-3 py-2 text-red-600 text-sm font-medium hover:bg-red-200 outline-none focus-visible:ring-2 focus-visible:ring-red-500"
                       onClick={handleDeleteFilteredNotes}>
                       Sim, quero apagar
                     </AlertDialog.Action>
